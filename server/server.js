@@ -4,7 +4,7 @@ const express = require('express');
 const socketIO = require('socket.io');
 const {generateMessage} = require('./utils/message');
 const {generateLocationMessage} =require('./utils/message');
-
+const port = process.env.PORT || 3000;
 const publicPath = path.join(__dirname,'../public');
 // console.log(__dirname+'/../public');
 // console.log(publicPath);
@@ -57,6 +57,6 @@ socket.on('createLocationMessage', (coords)=>{
 });
 
 
-server.listen(3000,()=>{
-  console.log('server is up on port 3000');
+server.listen(port,()=>{
+  console.log('server is up on port port'+port);
 })
