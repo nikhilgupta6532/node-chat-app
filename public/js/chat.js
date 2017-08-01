@@ -16,7 +16,16 @@ var socket = io(); //for initiate a request
     }
   }
   socket.on('connect', function () {
-    console.log('connected to server');
+    //console.log('connected to server');
+    var params = $.deparam(window.location.search);
+    socket.emit('join',params,function(err){
+      if(err){
+        alert(err);
+        window.location.href = '/';
+      }else{
+        console.log('No error');
+      }
+    });
     // socket.emit('createEmail',{
     //   to:'jen@example.com',
     //   text:'hey this is nikhil'
@@ -32,6 +41,14 @@ var socket = io(); //for initiate a request
     console.log('disconnected from server');
   });
 
+  socket.on('updateUserList',function(users){
+  //  console.log('Users list',users);
+  var ol = $('<ol></ol>');
+  users.forEach(function(user){
+    ol.append($('<li></li>').text(user));
+  });
+$('#users').html(ol);  
+});
   // socket.on('newEmail', function (email) {
   //   console.log('New Email',email);
   // });
